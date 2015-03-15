@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "",
+  "sourceRoot": "",
+  "sources": [
+    "/assets/source_maps/app/assets/javascripts/instruments/square.coffee"
+  ],
+  "names": [],
+  "mappings": "AACA;AAAA,MAAA;+BAAA;;AAAA,EAAM,MAAM,CAAC;AACX,8BAAA,CAAA;;;;KAAA;;AAAA,qBAAA,aAAA,GAAe,SAAC,IAAD,EAAO,MAAP,GAAA;AACb,UAAA,uCAAA;AAAA;WAAA,gDAAA;2BAAA;AACE,QAAA,MAAA,GAAS,CAAT,CAAA;AAAA,qBACA,MAAO,CAAA,CAAA,CAAP,GAAY,iGAA2E;AAAA,UAAA,CAAA,EAAI,CAAA,CAAJ;SAA3E,CAAA,GAAqF,OADjG,CADF;AAAA;qBADa;IAAA,CAAf,CAAA;;kBAAA;;KAD0B,WAA5B,CAAA;AAAA"
+}

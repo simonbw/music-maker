@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "",
+  "sourceRoot": "",
+  "sources": [
+    "/assets/source_maps/app/assets/javascripts/instruments/square_synth.coffee"
+  ],
+  "names": [],
+  "mappings": "AACA;AAAA,MAAA;+BAAA;;AAAA,EAAM,MAAM,CAAC;AACX,mCAAA,CAAA;;AAAa,IAAA,qBAAC,IAAD,GAAA;AACX,MAAA,6CAAM,IAAN,EAAY,QAAZ,CAAA,CADW;IAAA,CAAb;;uBAAA;;KAD+B,qBAAjC,CAAA;AAAA"
+}
