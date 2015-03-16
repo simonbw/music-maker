@@ -16,11 +16,11 @@ class window.Drumset extends Instrument
     @snare.output.connect(@chainStart)
     @bass.output.connect(@chainStart)
 
-  play: (note) ->
+  play: (note, beat) ->
     switch note.pitch
       when BASS
-        @bass.play(note)
+        @bass.play(note, beat)
       when SNARE
-        @snare.play(note)
+        @snare.play(note, beat)
       when HIHAT
-        @hihat.play(note)
+        @hihat.play(note, beat)

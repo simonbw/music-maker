@@ -8,38 +8,39 @@ class window.Instrument
     @chainStart = @output # the first node in the effects chain
 
   # Play a note
-  play: (note) ->
+  play: (note, beat) ->
     # do something
 
 
 # Base class for instruments that fill a buffer on their own
 class window.BufferInstrument extends Instrument
   # Play a note
-  play: (note) ->
-    buffer = Mixer.context.createBuffer(1, @getBufferLength(note), Mixer.context.sampleRate)
-    @writeToBuffer(note, buffer.getChannelData(0))
+  play: (note, beat) ->
+    buffer = Mixer.context.createBuffer(1, @getBufferLength(note, beat), Mixer.context.sampleRate)
+    @writeToBuffer(note, beat, buffer.getChannelData(0))
 
     source = Mixer.context.createBufferSource()
     source.buffer = buffer
     source.connect(@chainStart)
-    source.start()
+
+    source.start(beat.getSubdivisionTime(note.subdivision))
 
   # Write custom data to the buffer
-  writeToBuffer: (note, buffer) ->
+  writeToBuffer: (note, beat, buffer) ->
     # do something
 
   # Calculate the length the buffer should be
-  getBufferLength: (note) -> 
-    return note.duration * Mixer.getSamplesPerBeat()
+  getBufferLength: (note, beat) -> 
+    return note.duration * beat.samples
 
 
 class window.OscillatorInstrument extends Instrument
   constructor: (gain, @oscillatorType='sine', @attackTime=0.01) ->
     super(gain)
 
-  play: (note) ->
-    startTime = Mixer.context.currentTime
-    endTime = startTime + note.duration * 60 / Mixer.tempo
+  play: (note, beat) ->
+    startTime = beat.getSubdivisionTime(note.subdivision)
+    endTime = startTime + note.duration * beat.length
     
     oscillator = @makeOscillator(note)
 
@@ -59,7 +60,7 @@ class window.OscillatorInstrument extends Instrument
     return oscillator
 
   doGain: (note, gainNode, startTime, endTime) ->
-    gainNode.gain.linearRampToValueAtTime(0, startTime)
+    gainNode.gain.setValueAtTime(0, startTime)
     gainNode.gain.linearRampToValueAtTime(note.attack, startTime + @getAttackTime(note))
     gainNode.gain.linearRampToValueAtTime(0, endTime)
 

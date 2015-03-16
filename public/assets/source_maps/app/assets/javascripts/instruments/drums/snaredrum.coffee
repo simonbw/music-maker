@@ -47,7 +47,7 @@ class window.SnareDrum extends BufferInstrument
 
     @chainStart = @filter
 
-  writeToBuffer: (note, buffer) ->
+  writeToBuffer: (note, beat, buffer) ->
     for sample, i in buffer
       decay = i / buffer.length
       decay = Math.pow(decay, 0.4)
@@ -56,5 +56,6 @@ class window.SnareDrum extends BufferInstrument
       d += (Math.random() * 2 - 1) * (1 - decay) * 0.4 * note.attack * note.attack # the snare
       buffer[i] = d
 
-  getBufferLength: (note) ->
+  getBufferLength: (note, beat) ->
     return Math.ceil(0.3 * Mixer.context.sampleRate * Math.sqrt(note.attack))
+    

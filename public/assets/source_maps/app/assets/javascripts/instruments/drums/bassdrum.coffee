@@ -47,7 +47,7 @@ class window.BassDrum extends BufferInstrument
 
     @chainStart = @filter
 
-  writeToBuffer: (note, buffer) ->
+  writeToBuffer: (note, beat, buffer) ->
     for sample, i in buffer
       decay = i / buffer.length
       decay = Math.pow(decay, 0.4)
@@ -55,6 +55,6 @@ class window.BassDrum extends BufferInstrument
       d = Util.partialsWithDecay(PARTIALS, phase, decay) * note.attack
       buffer[i] = d
 
-  getBufferLength: (note) ->
+  getBufferLength: (note, beat) ->
     return Math.ceil(0.7 * Mixer.context.sampleRate * Math.sqrt(note.attack))
 
