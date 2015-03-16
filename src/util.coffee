@@ -21,6 +21,9 @@ class window.Random
       a = 0
     return Math.random() * (b - a) + a
 
+  @int: (a, b) ->
+    return Math.floor(@uniform(a, b))
+
   # Choose a random element from an array
   @choose: (options) ->
     return options[Math.floor(Math.random() * options.length)]

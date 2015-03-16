@@ -49,7 +49,7 @@ class window.Composer
   generateBass: ->
     notes = []
     if @beat % 8 == 0 and Math.random() < 0.9
-      notes.push(new Note(Random.choose(PENTATONIC_MINOR) - 2 * OCTAVE + @key).setDuration(8))
+      notes.push(new Note(Random.choose(PENTATONIC_MINOR) - 3 * OCTAVE + @key).setDuration(8))
     return notes
   
   generateDrums: ->
