@@ -10,6 +10,7 @@ class window.Util
       result += Math.sin(d.frequency * phase) * Math.max(1 - decay * d.decay, 0) * d.volume;
     return result
 
+module.exports = 
 
 # Various random functions
 class window.Random

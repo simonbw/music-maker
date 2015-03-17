@@ -1,4 +1,8 @@
-$(document).ready -> 
+require "./mixer.coffee"
+require "./conductor.coffee"
+require "./composer/composer.coffee"
+
+document.onload -> 
   instruments = {
     'high': new TriangleSynth(0.1)
     'lead': new SquareSynth(0.1)
