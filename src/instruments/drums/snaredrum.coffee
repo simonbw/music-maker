@@ -1,6 +1,8 @@
+Mixer = require "../../mixer.coffee"
+BufferInstrument = require "../buffer_instrument.coffee"
+Util = require "../../util.coffee"
 
-
-class window.SnareDrum extends BufferInstrument
+class SnareDrum extends BufferInstrument
 
   PARTIALS = [{
       frequency: 7.7 * Math.pow(15 + 37, 0.85),
@@ -59,3 +61,4 @@ class window.SnareDrum extends BufferInstrument
   getBufferLength: (note, beat) ->
     return Math.ceil(0.3 * Mixer.context.sampleRate * Math.sqrt(note.attack))
     
+module.exports = SnareDrum

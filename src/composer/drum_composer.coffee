@@ -1,10 +1,14 @@
+Random = require "../random.coffee"
+Composer = require "./composer.coffee"
+Note = require '../note.coffee'
+Drumset = require '../instruments/drumset.coffee'
 
-class window.DrumComposer
+class DrumComposer
   SPEED_NORMAL = 'normal'
   SPEED_DOUBLE = 'double'
   SPEED_HALF = 'half'
 
-  constructor: () ->
+  constructor: (@composer) ->
     @groove = []
     @smallFill = [] # half bar
     @bigFill = [] # full bar
@@ -14,10 +18,10 @@ class window.DrumComposer
     @hihatOffset = 0
 
   nextSmallFill: () ->
-    @smallFill = @makeFill(Composer.BEATS_PER_BAR / 2)
+    @smallFill = @makeFill(@composer.beatsPerBar / 2)
 
   nextBigFill: () ->
-    @bigFill = @makeFill(Composer.BEATS_PER_BAR)
+    @bigFill = @makeFill(@composer.beatsPerBar)
 
   nextGroove: () ->
     options = [
@@ -29,10 +33,10 @@ class window.DrumComposer
 
     @doubletime = Math.random() < 0.2 - @halftime * 0.15
     @halftime = !@doubletime and Math.random() < 0.25 + @halftime * 0.2
-    @groove = @makeGroove(Composer.BEATS_PER_BAR, @speed)
+    @groove = @makeGroove(@composer.beatsPerBar, @speed)
 
   makeFill: (length) ->
-    length ?= Composer.BEATS_PER_BAR
+    length ?= @composer.beatsPerBar
 
     fill = []
     speedModifier = switch @speed
@@ -55,7 +59,7 @@ class window.DrumComposer
     return fill
 
   makeGroove: (length, speed) ->
-    length ?= Composer.BEATS_PER_BAR
+    length ?= @composer.beatsPerBar
     speed ?= @speed
 
     groove = []
@@ -77,7 +81,7 @@ class window.DrumComposer
           if Math.random() < 0.4
             @hihatOffset = 2
 
-    for i in [0..Composer.BEATS_PER_BAR]
+    for i in [0..@composer.beatsPerBar]
       notes = []
 
       bassChance = 0
@@ -143,3 +147,5 @@ class window.DrumComposer
     if (i % 4 == 0) then attack += quarters
     if (i % 2 == 0) then attack += eighths
     return attack
+
+module.exports = DrumComposer

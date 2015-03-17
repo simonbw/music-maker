@@ -1,10 +1,10 @@
+DrumComposer = require './drum_composer.coffee'
+Mixer = require '../mixer.coffee'
+Note = require '../note.coffee'
+Random = require "../random.coffee"
 
-
-class window.Composer
-  @PHRASES_PER_SECTION = PHRASES_PER_SECTION = 4
-  @BARS_PER_PHRASE = BARS_PER_PHRASE = 4
-  @BEATS_PER_BAR = BEATS_PER_BAR = 16
-  @OCTAVE = OCTAVE = 12
+class Composer
+  OCTAVE = 12
 
   PENTATONIC_MAJOR = [0, 2, 4, 7, 9, 12]
   PENTATONIC_MINOR = [0, 3, 5, 7, 10, 12]
@@ -13,12 +13,16 @@ class window.Composer
     @section = 0
     @phrase = 0
     @bar = 0
-    @beat = 0;
+    @beat = 0
+
+    @phrasesPerSection = 4
+    @barsPerPhrase = 4
+    @beatsPerBar = 16
     
     @key = 0
     @chord = 0
     @bassline = {}
-    @drumComposer = new DrumComposer()
+    @drumComposer = new DrumComposer(this)
 
   nextBeat: ->
     if @beat == 0
@@ -57,8 +61,8 @@ class window.Composer
     if @bar == 3
       if @phrase % 4 == 3
         notes = @drumComposer.bigFill[@beat]
-      else if @beat >= BEATS_PER_BAR / 2
-        notes = @drumComposer.smallFill[@beat - BEATS_PER_BAR / 2]
+      else if @beat >= @beatsPerBar / 2
+        notes = @drumComposer.smallFill[@beat - @beatsPerBar / 2]
     return notes
 
   nextBar: ->
@@ -80,12 +84,14 @@ class window.Composer
   
   advanceCount: ->
     @beat += 1
-    if @beat == BEATS_PER_BAR
+    if @beat == @beatsPerBar
       @beat = 0
       @bar += 1
-      if @bar == BARS_PER_PHRASE
+      if @bar == @barsPerPhrase
         @bar = 0
         @phrase += 1
-        if @phrase == PHRASES_PER_SECTION
+        if @phrase == @phrasesPerSection
           @phrase = 0
           @section += 1
+
+module.exports = Composer

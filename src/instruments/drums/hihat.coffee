@@ -1,6 +1,7 @@
+Mixer = require "../../mixer.coffee"
+BufferInstrument = require "../buffer_instrument.coffee"
 
-
-class window.HiHat extends BufferInstrument
+class HiHat extends BufferInstrument
   constructor: (gain) ->
     super(gain)
 
@@ -20,3 +21,5 @@ class window.HiHat extends BufferInstrument
 
   getBufferLength: (note, beat) ->
     return Math.ceil(0.22 * Mixer.context.sampleRate)
+
+module.exports = HiHat
