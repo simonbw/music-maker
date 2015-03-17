@@ -1,4 +1,8 @@
+Mixer = require "../mixer.coffee"
+OscillatorInstrument = require "./oscillator_instrument.coffee"
 
-class window.SawtoothSynth extends OscillatorInstrument
+class SawtoothSynth extends OscillatorInstrument
   constructor: (gain) ->
     super(gain, 'sawtooth')
+
+module.exports = SawtoothSynth

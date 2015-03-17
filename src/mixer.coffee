@@ -1,4 +1,5 @@
-class window.Mixer
+
+class Mixer
   @context = new AudioContext()
   @output = @context.createGain()
   @output.connect(@context.destination)
@@ -13,3 +14,5 @@ class window.Mixer
     @tempo = value * subdivisions
 
   @setTempo(120)
+
+module.exports = Mixer

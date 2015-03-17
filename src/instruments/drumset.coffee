@@ -1,5 +1,10 @@
+Mixer = require "../mixer.coffee"
+Instrument = require "./instrument.coffee"
+HiHat = require "./drums/hihat.coffee"
+SnareDrum = require "./drums/snaredrum.coffee"
+BassDrum = require "./drums/bassdrum.coffee"
 
-class window.Drumset extends Instrument
+class Drumset extends Instrument
   # map from pitch to drum
   @BASS = BASS = 0
   @SNARE = SNARE = 1
@@ -24,3 +29,5 @@ class window.Drumset extends Instrument
         @snare.play(note, beat)
       when HIHAT
         @hihat.play(note, beat)
+
+module.exports = Drumset

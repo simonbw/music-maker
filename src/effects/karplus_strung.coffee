@@ -1,6 +1,7 @@
+Mixer = require "../mixer.coffee"
 
 # TODO: Actually implement this. It doesn't work right now.
-class window.KarplusStrung
+class KarplusStrung
   constructor: (@N) ->
     @input = @output = @processor = Mixer.context.createScriptProcessor(0, 1, 1)
     @processor.onaudioprocess = @process
@@ -11,3 +12,5 @@ class window.KarplusStrung
 
     for i in [0..outputData.length]
       outputData[i] = inputData[i]
+
+module.exports = KarplusStrung

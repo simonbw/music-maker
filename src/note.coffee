@@ -1,5 +1,5 @@
 
-class window.Note
+class Note
   constructor: (@pitch = 0) ->
     @duration = 1
     @attack = 0.7
@@ -21,3 +21,5 @@ class window.Note
   setSubdivision: (value) ->
     @subdivision = value
     return this
+
+module.exports = Note

@@ -1,4 +1,8 @@
+Mixer = require "../mixer.coffee"
+OscillatorInstrument = require "./oscillator_instrument.coffee"
 
-class window.SineSynth extends OscillatorInstrument
+class SineSynth extends OscillatorInstrument
   constructor: (gain) ->
     super(gain, 'sine')
+
+module.exports = SineSynth
