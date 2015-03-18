@@ -1,22 +1,29 @@
-SimpleComposer = require "./composer/simple_composer.coffee"
 Conductor = require "./conductor.coffee"
 Drumset = require "./instruments/drumset.coffee"
 Mixer = require "./mixer.coffee"
 SawtoothSynth = require "./instruments/sawtooth_synth.coffee"
+SimpleComposer = require "./composer/simple_composer.coffee"
 SquareSynth = require "./instruments/square_synth.coffee"
 TriangleSynth = require "./instruments/triangle_synth.coffee"
 Visualizer = require "./visualizer.coffee"
+SimpleReverb = require "./effects/simple_reverb.coffee"
 
 window.onload = ->
   instruments = {
-    'high': new TriangleSynth(0.1)
-    'lead': new SquareSynth(0.1)
-    'bass': new SawtoothSynth(0.08)
-    'drums': new Drumset(0.5)
+    'high': new TriangleSynth(0.05)
+    'lead': new SquareSynth(0.03)
+    'bass': new SawtoothSynth(0.05)
+    'drums': new Drumset(1.0)
   }
 
-  for name, instrument of instruments
-    instrument.output.connect(Mixer.output)
+  reverb = new SimpleReverb(0.85, 0.25)
+  reverb.output.gain.value = 1.6
+  reverb.output.connect(Mixer.output)
+
+  instruments.high.output.connect(Mixer.output)
+  instruments.lead.output.connect(Mixer.output)
+  instruments.bass.output.connect(Mixer.output)
+  instruments.drums.output.connect(reverb.input)
 
   composer = composer = new SimpleComposer()
   window.conductor = new Conductor(composer, instruments)

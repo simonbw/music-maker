@@ -20,6 +20,6 @@ class HiHat extends BufferInstrument
       buffer[i] = d
 
   getBufferLength: (note, beat) ->
-    return Math.ceil(0.22 * Mixer.context.sampleRate)
+    return 0.28 * Math.sqrt(note.attack)
 
 module.exports = HiHat

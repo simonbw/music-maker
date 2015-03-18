@@ -15,7 +15,7 @@ class Drumset extends Instrument
     
     @hihat = new HiHat(0.05)
     @snare = new SnareDrum(1.0)
-    @bass = new BassDrum(1.0)
+    @bass = new BassDrum(0.5)
 
     @hihat.output.connect(@chainStart)
     @snare.output.connect(@chainStart)

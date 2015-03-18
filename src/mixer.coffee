@@ -13,6 +13,11 @@ class Mixer
   @setTempo: (value, subdivisions = 4) ->
     @tempo = value * subdivisions
 
+  @getBuffer: (length = 1.0, channels = 1) ->
+    samples = Math.ceil(@context.sampleRate * length)
+    return @context.createBuffer(channels, samples, @context.sampleRate)
+
   @setTempo(120)
+
 
 module.exports = Mixer
