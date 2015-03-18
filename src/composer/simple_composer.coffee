@@ -12,7 +12,11 @@ class SimpleComposer extends Composer
   constructor: ->
     super()
     @key = 0
+    @beatsPerBar = 16
     @drumComposer = new DrumComposer(this)
+
+  generateTempo: ->
+    return 400
 
   generateHigh: ->
     notes = []

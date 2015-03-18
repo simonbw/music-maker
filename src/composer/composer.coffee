@@ -8,22 +8,26 @@ class Composer
 
     @phrasesPerSection = 4
     @barsPerPhrase = 4
-    @beatsPerBar = 16
+    @beatsPerBar = 4
 
   nextBeat: ->
     if @beat == 0
       @nextBar()
     
     notes = {
-      'high': @generateHigh(),
-      'lead': @generateLead(),
-      'bass': @generateBass(),
+      'tempo': @generateTempo()
+      'high': @generateHigh()
+      'lead': @generateLead()
+      'bass': @generateBass()
       'drums': @generateDrums()
     }
 
     @advanceCount()
 
     return notes
+
+  generateTempo: ->
+    return 120
 
   generateHigh: ->
     return []

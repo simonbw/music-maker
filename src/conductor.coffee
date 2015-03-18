@@ -16,7 +16,7 @@ class Conductor
   constructor: (@composer, @instruments) ->
     @playing = false
     @timeoutId = null
-    @tempo = 330
+    @tempo = 120
 
   start: () =>
     console.log "Conductor starting"
@@ -31,15 +31,19 @@ class Conductor
     @timeoutId = setTimeout(@update, SLEEP_TIME)
 
   nextBeat: () =>
+    data = @composer.nextBeat()
+    if data['tempo']
+      @tempo = data.tempo
+      
     currentBeatTime = @nextBeatTime
     @nextBeatTime += 60 / @tempo
     beat = new Beat(currentBeatTime, @nextBeatTime)
-
-    data = @composer.nextBeat()
     for instrument, notes of data
+      if instrument == 'tempo'
+        continue
       if notes is undefined
         console.log data
-        throw "undefined notes for #{instrument}"
+        throw new Error("undefined notes for #{instrument}")
       else
         for note in notes
           @instruments[instrument].play(note, beat)
