@@ -22,7 +22,7 @@ class Random
     
     weightIndex = 0
     weightThreshold = Math.random() * totalWeight
-    for option in options      
+    for option in options
       weightIndex += option[1]
       if weightIndex > weightThreshold
         return option[0]

@@ -1,4 +1,4 @@
-# Various utility functions 
+# Various utility functions
 class Util
 
   @randomPitch: (min, max) ->

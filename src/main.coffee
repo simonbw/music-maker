@@ -7,7 +7,7 @@ SquareSynth = require "./instruments/square_synth.coffee"
 TriangleSynth = require "./instruments/triangle_synth.coffee"
 Visualizer = require "./visualizer.coffee"
 
-window.onload = -> 
+window.onload = ->
   instruments = {
     'high': new TriangleSynth(0.1)
     'lead': new SquareSynth(0.1)
