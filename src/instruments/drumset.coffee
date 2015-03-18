@@ -13,7 +13,7 @@ class Drumset extends Instrument
   constructor: (gain) ->
     super(gain)
     
-    @hihat = new HiHat(0.1)
+    @hihat = new HiHat(0.05)
     @snare = new SnareDrum(1.0)
     @bass = new BassDrum(1.0)
 

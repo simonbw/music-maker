@@ -1,4 +1,4 @@
-Composer = require "./composer/composer.coffee"
+SimpleComposer = require "./composer/simple_composer.coffee"
 Conductor = require "./conductor.coffee"
 Drumset = require "./instruments/drumset.coffee"
 Mixer = require "./mixer.coffee"
@@ -18,10 +18,10 @@ window.onload = ->
   for name, instrument of instruments
     instrument.output.connect(Mixer.output)
 
-  composer = composer = new Composer()
+  composer = composer = new SimpleComposer()
   window.conductor = new Conductor(composer, instruments)
 
-  masterVisualizer = new Visualizer(16)
+  masterVisualizer = new Visualizer(256)
   Mixer.output.connect(masterVisualizer.input)
   document.querySelector('#visualizers').appendChild(masterVisualizer.element)
 
