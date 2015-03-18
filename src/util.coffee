@@ -1,5 +1,8 @@
 # Various utility functions
 class Util
+
+  @mod: (value, divisor) ->
+    return ((value % divisor) + divisor) % divisor
   @clamp: (value, min=0, max=1) ->
     return Math.max(Math.min(value, max), min)
 

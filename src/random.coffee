@@ -10,6 +10,12 @@ class Random
   @int: (a, b) ->
     return Math.floor(@uniform(a, b))
 
+  @bit: (chance = 0.5) ->
+    return if (Math.random() < chance) then 1 else 0
+
+  @sign: (chance = 0.5) ->
+    return if (Math.random() < chance) then 1 else -1
+
   # Choose a random element from an array
   @choose: (options) ->
     return options[Math.floor(Math.random() * options.length)]
@@ -28,3 +34,5 @@ class Random
         return option[0]
 
 module.exports = Random
+
+window.Random = Random
