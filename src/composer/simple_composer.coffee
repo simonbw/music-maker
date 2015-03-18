@@ -1,3 +1,4 @@
+Composer = require "./composer.coffee"
 DrumComposer = require './drum_composer.coffee'
 Mixer = require '../mixer.coffee'
 Note = require '../note.coffee'

@@ -57,7 +57,7 @@ class BassDrum extends BufferInstrument
       d = Util.partialsWithDecay(PARTIALS, phase, decay) * note.attack
       buffer[i] = d
 
-  getBufferLength: (note, beat) ->
-    return Math.ceil(0.7 * Mixer.context.sampleRate * Math.sqrt(note.attack))
+  getNoteLength: (note, beat) ->
+    return 0.7 * Math.sqrt(note.attack)
 
 module.exports = BassDrum

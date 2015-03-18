@@ -59,6 +59,6 @@ class SnareDrum extends BufferInstrument
       buffer[i] = d
 
   getBufferLength: (note, beat) ->
-    return Math.ceil(0.3 * Mixer.context.sampleRate * Math.sqrt(note.attack))
+    return 0.3 * Math.sqrt(note.attack)
     
 module.exports = SnareDrum

@@ -5,7 +5,7 @@ Instrument = require "./instrument.coffee"
 class BufferInstrument extends Instrument
   # Play a note
   play: (note, beat) ->
-    buffer = Mixer.context.createBuffer(1, @getBufferLength(note, beat), Mixer.context.sampleRate)
+    buffer = Mixer.getBuffer(@getNoteLength(note, beat))
     @writeToBuffer(note, beat, buffer.getChannelData(0))
 
     source = Mixer.context.createBufferSource()
@@ -19,7 +19,7 @@ class BufferInstrument extends Instrument
     # do something
 
   # Calculate the length the buffer should be
-  getBufferLength: (note, beat) -> 
-    return note.duration * beat.samples
+  getNoteLength: (note, beat) -> 
+    return note.duration * beat.length
 
 module.exports = BufferInstrument
