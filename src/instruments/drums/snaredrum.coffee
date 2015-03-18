@@ -58,7 +58,7 @@ class SnareDrum extends BufferInstrument
       d += (Math.random() * 2 - 1) * (1 - decay) * 0.4 * note.attack * note.attack # the snare
       buffer[i] = d
 
-  getBufferLength: (note, beat) ->
+  getNoteLength: (note, beat) ->
     return 0.3 * Math.sqrt(note.attack)
     
 module.exports = SnareDrum

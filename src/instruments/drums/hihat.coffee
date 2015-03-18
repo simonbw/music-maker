@@ -19,7 +19,7 @@ class HiHat extends BufferInstrument
       d = (Math.random() * 2 - 1) * (1 - decay) * note.attack
       buffer[i] = d
 
-  getBufferLength: (note, beat) ->
+  getNoteLength: (note, beat) ->
     return 0.28 * Math.sqrt(note.attack)
 
 module.exports = HiHat
