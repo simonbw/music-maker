@@ -4,7 +4,18 @@ var watchify = require('watchify');
 var source = require('vinyl-source-stream');
 
 function publish(b) {
-  b.bundle().pipe(source('music_maker.js')).pipe(gulp.dest('./bin'))
+  var success = true
+  b.bundle()
+    .on('error', function(e) {
+      console.log(e)
+      success = false
+    })
+    .pipe(source('music_maker.js'))
+    .pipe(gulp.dest('./bin'))
+  if (success) {
+    console.log('success')
+  }
+  return b
 }
 
 gulp.task('default', function() {
@@ -29,6 +40,5 @@ gulp.task('watch', function() {
   b.on('update', function() {
     publish(b);
   });
-  // b.add('./src/main.coffee')
   publish(b);
 });
