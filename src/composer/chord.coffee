@@ -9,7 +9,7 @@ class Chord
     return chords[symbol]
 
   constructor: (@root, @intervals) ->
-    @pitches = (i + root for i in @intervals)
+    @pitches = (i + @root for i in @intervals)
 
   inversion: (degree = 1) ->
     return (@pitches[(i + degree) % @pitches.length] for i in [0...@pitches.length])
