@@ -1,41 +1,39 @@
 Util = require "../util.coffee"
 
-chords = {}
+chords = {
+  maj: [0, 4, 7]
+  maj7: [0, 4, 7, 10]
+  majM7: [0, 4, 7, 11]
+  min: [0, 3, 7]
+  min7: [0, 3, 7, 10]
+  minM7: [0, 3, 7, 11]
+}
 
 class Chord
-  @get: (symbol) ->
-    if symbol not of chords
-      throw new Error("Bad Chord: #{symbol}")
-    return chords[symbol]
+  OCTAVE = 12
+
+  @get: (root, type='maj') ->
+    if not type of chords
+      throw new Error("Bad Chord: #{type}")
+    return new Chord(root, chords[type])
 
   constructor: (@root, @intervals) ->
     @pitches = (i + @root for i in @intervals)
 
   inversion: (degree = 1) ->
-    return (@pitches[(i + degree) % @pitches.length] for i in [0...@pitches.length])
+    result = []
+    for i in [0...@pitches.length]
+      octave = Math.floor(i / @pitches.length) * OCTAVE
+      result.push(@pitches[(i + degree) % @pitches.length] + octave)
+    return result
 
   contains: (pitch) ->
     pitch = Util.mod(pitch, 12)
+    return pitch in @pitches
 
   toString: ->
     return "<Chord: #{@pitches}>"
 
-major = [0, 4, 7]
-major7 = [0, 4, 7, 10]
-majorM7 = [0, 4, 7, 11]
-minor = [0, 3, 7]
-minor7 = [0, 3, 7, 10]
-minorM7 = [0, 3, 7, 11]
-
-numerals = ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii']
-for i in [0...numerals.length]
-  numeral = numerals[i]
-
-  chords[numeral] = new Chord(i, minor)
-  chords[numeral + '7'] = new Chord(i, minor7)
-  chords[numeral + 'M7'] = new Chord(i, minorM7)
-  chords[numeral.toUpperCase()] = new Chord(i, major)
-  chords[numeral.toUpperCase() + '7'] = new Chord(i, major7)
-  chords[numeral.toUpperCase() + 'M7'] = new Chord(i, majorM7)
-
+window.Chord = Chord
+console.log "CHORDS"
 module.exports = Chord

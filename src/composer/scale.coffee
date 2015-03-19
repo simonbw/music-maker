@@ -1,3 +1,4 @@
+require "./chord.coffee"
 
 Scale = {
   PENTATONIC_MAJOR: [0, 2, 4, 7, 9, 12]
