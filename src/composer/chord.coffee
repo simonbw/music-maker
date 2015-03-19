@@ -4,7 +4,7 @@ chords = {}
 
 class Chord
   @get: (symbol) ->
-    if symbol not in chords
+    if symbol not of chords
       throw new Error("Bad Chord: #{symbol}")
     return chords[symbol]
 
