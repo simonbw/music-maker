@@ -16,6 +16,7 @@ class OscillatorInstrument extends Instrument
     oscillator.connect(gainNode)
     
     @doGain(note, gainNode, startTime, endTime)
+    @doPitchbends(note, beat, oscillator, startTime, endTime)
 
     oscillator.start(startTime)
     oscillator.stop(endTime)
@@ -30,6 +31,13 @@ class OscillatorInstrument extends Instrument
     gainNode.gain.setValueAtTime(0, startTime)
     gainNode.gain.linearRampToValueAtTime(note.attack, startTime + @getAttackTime(note))
     gainNode.gain.linearRampToValueAtTime(0, endTime)
+
+  doPitchbends: (note, beat, oscillator, startTime, endTime) ->
+    for bend in note.pitchBends
+      start = startTime + bend.start * note.duration * beat.length
+      end = startTime + bend.end * note.duration * beat.length
+      oscillator.frequency.setValueAtTime(bend.fromFrequency, start)
+      oscillator.frequency.linearRampToValueAtTime(bend.toFrequency, end)
 
   getAttackTime: (note) ->
     return @attackTime
