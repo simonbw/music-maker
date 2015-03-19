@@ -28,6 +28,7 @@ class BluesSoloComposer
         [6, 6]
       ]
 
+      lastPitchIndex = @lastPitchIndex
       pitch = @nextPitch()
 
       consonant = Util.mod(pitch, 12) in @composer.chord
@@ -73,11 +74,15 @@ class BluesSoloComposer
         restChance += 0.1
 
       if not Random.bit(restChance)
-        attack = 0.5
+        attack = 0.4
         if consonant
           attack += 0.1
         if currentSubdivision == 0
           attack += 0.2
+          if @composer.bar == 0
+            attack += 0.1
+          if @composer.phrase == 0
+            attack += 0.1
         if currentSubdivision == 4
           attack += 0.1
         if currentSubdivision % 2 == 0
@@ -87,6 +92,16 @@ class BluesSoloComposer
           .setAttack(attack)
           .setDuration(duration / 6)
           .setSubdivision(currentSubdivision / 6)
+
+        if Random.bit(Math.pow(duration, 1.3) / 40)
+          if Random.bit(0.5 * (1 - duration / 6) + 0.5)
+            sign = -Math.sign(@lastPitchIndex - lastPitchIndex)
+            note.addPitchBend(0, 0.15 + Math.random() * 0.4, sign * 2, 0)
+          else
+            amount = Random.sign() * 2
+            peakTime = 1 / duration 
+            note.addPitchBend(0, peakTime, amount, 0)
+            note.addPitchBend(peakTime, peakTime * 2, 0, amount)
         notes.push(note)
 
       currentSubdivision += duration
