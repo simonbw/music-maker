@@ -11,9 +11,13 @@ class BluesComposer extends Composer
   OCTAVE = 12
   SWING = 2 / 3
 
+  # Chords
   I = [0, 4, 7]
-  IV = [5, 9, 12]
-  V = [7, 11, 14]
+  I7 = [0, 4, 7, 10]
+  IV = [5, 9, 0]
+  IV7 = [5, 9, 0, 3]
+  V = [7, 11, 2]
+  V7 = [7, 11, 2, 5]
 
   constructor: ->
     super()
@@ -22,7 +26,7 @@ class BluesComposer extends Composer
     @phrasesPerSection = 3
 
     @key = 0
-    @chords = [I, I, I, I, IV, IV, I, I, V, IV, I, V]
+    @chords = [I, IV, I, I, IV, IV7, I, I, V, IV7, I, V7]
     @chord = I
 
     @soloComposer = new BluesSoloComposer(this)
@@ -32,6 +36,16 @@ class BluesComposer extends Composer
 
   generateHigh: ->
     notes = []
+    for pitch in @chord
+      notes.push(
+        new Note(pitch + OCTAVE)
+          .setDuration(1 / 6))
+
+    for pitch in @chord
+      notes.push(
+        new Note(pitch + OCTAVE)
+          .setDuration(1 / 6)
+          .setSubdivision(2 / 3))
     return notes
 
   generateLead: ->

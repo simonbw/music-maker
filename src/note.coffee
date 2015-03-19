@@ -11,6 +11,8 @@ class Note
     return this
 
   setDuration: (value) ->
+    if (value <= 0)
+      throw new Error("Duration must be positive: #{value}")
     @duration = value
     return this
 
@@ -19,7 +21,15 @@ class Note
     return this
 
   setSubdivision: (value) ->
+    if value < 0 or value > 1
+      throw new Error("Subdivision must be a number between 0 and 1: #{value}")
     @subdivision = value
     return this
 
+  clone: () ->
+    clone = new Note(@pitch)
+    clone.duration = @duration
+    clone.attack = @attack
+    clone.subdivision = @subdivision
+    
 module.exports = Note
