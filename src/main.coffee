@@ -1,16 +1,16 @@
+BluesComposer = require "./composer/blues_composer.coffee"
 Conductor = require "./conductor.coffee"
 Drumset = require "./instruments/drumset.coffee"
 Guitar = require "./instruments/guitar.coffee"
 Mixer = require "./mixer.coffee"
+Samples = require "./samples.coffee"
 SawtoothSynth = require "./instruments/sawtooth_synth.coffee"
-SineSynth = require "./instruments/sine_synth.coffee"
 SimpleComposer = require "./composer/simple_composer.coffee"
-BluesComposer = require "./composer/blues_composer.coffee"
+SimpleReverb = require "./effects/simple_reverb.coffee"
+SineSynth = require "./instruments/sine_synth.coffee"
 SquareSynth = require "./instruments/square_synth.coffee"
 TriangleSynth = require "./instruments/triangle_synth.coffee"
 Visualizer = require "./visualizer.coffee"
-SimpleReverb = require "./effects/simple_reverb.coffee"
-Samples = require "./samples.coffee"
 
 window.onload = ->
   Samples.loadAll ->

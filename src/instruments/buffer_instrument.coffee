@@ -10,9 +10,12 @@ class BufferInstrument extends Instrument
 
     source = Mixer.context.createBufferSource()
     source.buffer = buffer
-    source.connect(@chainStart)
+    source.connect(@getNoteChain(note, beat))
 
     source.start(beat.getSubdivisionTime(note.subdivision))
+
+  getNoteChain: (note, beat) ->
+    return @chainStart
 
   # Write custom data to the buffer
   writeToBuffer: (note, beat, buffer) ->
