@@ -23,7 +23,7 @@ window.onload = ->
   reverb.output.connect(Mixer.output)
 
   instruments.high.output.connect(reverb.input)
-  # instruments.lead.output.connect(Mixer.output)
+  instruments.lead.output.connect(Mixer.output)
   instruments.lead.output.connect(reverb.input)
   instruments.bass.output.connect(reverb.input)
   instruments.drums.output.connect(reverb.input)

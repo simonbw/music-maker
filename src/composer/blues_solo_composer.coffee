@@ -1,6 +1,6 @@
 Note = require '../note.coffee'
 Random = require "../random.coffee"
-Scale = require "./scales.coffee"
+Scale = require "./scale.coffee"
 Util = require "../util.coffee"
 
 class BluesSoloComposer
@@ -8,9 +8,9 @@ class BluesSoloComposer
   DOWN = false
 
   constructor: (@composer) ->
-    @scale = Scale.BLUES_MAJOR
+    @scale = Scale.BLUES_MINOR
     @lastPitchIndex = Random.int(@scale.length)
-    @direction = Random.bit()
+    @up = Random.bit() # whether we're heading up or down
     @lastDuration = 0
 
   getBeat: () ->
@@ -94,30 +94,66 @@ class BluesSoloComposer
     return notes
 
   nextPitch: () ->
-    upChance = 0.1 + @direction * 0.8
-    upChance -= @lastPitchIndex / 30
+    upChance = 0.1 + @up * 0.8
+    upChance -= @lastPitchIndex / (3 * @scale.length)
     downChance = 1 - upChance
-    @direction = Random.bit(upChance)
+    @up = Random.bit(upChance)
 
-    variation = 0.3
-    chance = @direction ? 1 - variation : 0 + variation
-    chances = [
-      [5, 0.2 * upChance] #octave
-      [5, 0.2 * upChance]
-      [4, 0.2 * upChance]
-      [3, 1 * upChance]
-      [2, 2 * upChance]
-      [1, 10 * upChance]
-      [0, 3]
-      [-1, 10 * downChance]
-      [-2, 2 * downChance]
-      [-3, 1 * downChance]
-      [-4, 0.2 * downChance]
-      [-5, 0.0 * downChance]
-      [-5, 0.2 * downChance] #octave
-    ]
+    downChance = 1 - upChance
+    # these are all tuned for minor blues
+    chances = switch Util.mod(@lastPitchIndex, @scale.length)
+      when 0 # 0
+        [
+          [5,  if @up then 5 else 0] # 12 octave
+          [5,  if @up then 1 else 0] # 10
+          [4,  if @up then 4 else 1] # 7
+          [3,  if @up then 1 else 1] # 6 blue
+          [2,  if @up then 1 else 1] # 5
+          [1,  if @up then 8 else 1] # 3
+          [0,  if @up then 1 else 1] # same
+          [-1, if @up then 1 else 3] # 10 
+          [-2, if @up then 0 else 1] # 7
+          [-3, if @up then 0 else 4] # 6 blue
+          [-4, if @up then 3 else 0] # 5 
+          [-5, if @up then 0 else 0] # 3 
+          [-5, if @up then 0 else 1] # 0 octave
+        ]
+      when 1 # 3
+        [
+          [1,  if @up then 3 else 0] # 5
+          [0,  if @up then 1 else 1] # same
+          [-1, if @up then 0 else 3] # 0 tonic
+        ]
+      when 2 # 5
+        [
+          [2,  if @up then 3 else 0] # 7
+          [1,  if @up then 3 else 0] # 6 blue
+          [0,  if @up then 1 else 1] # same
+          [-1, if @up then 0 else 3] # 3
+        ]
+      when 3 # 6 blue
+        [
+          [1,  if @up then 9 else 1] # 
+          [0,  if @up then 1 else 1] # 
+          [-1, if @up then 0 else 9] # 
+        ]
+      when 4 # 7
+        [
+          [2,  if @up then 3 else 1] # 12 tonic
+          [1,  if @up then 3 else 0] # 10
+          [0,  if @up then 1 else 1] # same
+          [-1, if @up then 0 else 3] # 6 blue
+          [-1, if @up then 0 else 3] # 5
+          [-4, if @up then 3 else 1] # 0 tonic
+        ]
+      when 5 # 10
+        [
+          [1,  if @up then 3 else 0] # tonic
+          [0,  if @up then 1 else 1] # same
+          [-1, if @up then 0 else 3] # 7
+        ]
     @lastPitchIndex += Random.weightedChoose(chances)
     octave = Math.floor(@lastPitchIndex / @scale.length)
-    return @scale[Util.mod(@lastPitchIndex, @scale.length)] + octave * 12
+    return @scale[Util.mod(@lastPitchIndex, @scale.length)] + octave * 12 + @composer.key
 
 module.exports = BluesSoloComposer

@@ -1,10 +1,11 @@
+BluesSoloComposer = require "./blues_solo_composer.coffee"
+Chord = require "./chord.coffee"
 Composer = require "./composer.coffee"
 Drumset = require "../instruments/drumset.coffee"
 Mixer = require '../mixer.coffee'
 Note = require '../note.coffee'
 Random = require "../random.coffee"
-Scale = require "./scales.coffee"
-BluesSoloComposer = require "./blues_solo_composer.coffee"
+Scale = require "./scale.coffee"
 
 # Creates simple music
 class BluesComposer extends Composer
@@ -12,12 +13,12 @@ class BluesComposer extends Composer
   SWING = 2 / 3
 
   # Chords
-  I = [0, 4, 7]
-  I7 = [0, 4, 7, 10]
-  IV = [5, 9, 0]
-  IV7 = [5, 9, 0, 3]
-  V = [7, 11, 2]
-  V7 = [7, 11, 2, 5]
+  i = Chord.get(0, 'min')
+  iv = Chord.get(5, 'min')
+  iv7 = Chord.get(5, 'min7')
+  v = Chord.get(7, 'min')
+  v7 = Chord.get(7, 'min7')
+  V = Chord.get(7, 'maj')
 
   constructor: ->
     super()
@@ -26,8 +27,8 @@ class BluesComposer extends Composer
     @phrasesPerSection = 3
 
     @key = 0
-    @chords = [I, IV, I, I, IV, IV7, I, I, V, IV7, I, V7]
-    @chord = I
+    @chords = [i, i, i, i, iv, iv7, i, i, v7, iv, i, V]
+    @chord = i
 
     @soloComposer = new BluesSoloComposer(this)
 
@@ -36,14 +37,21 @@ class BluesComposer extends Composer
 
   generateHigh: ->
     notes = []
-    for pitch in @chord
+    inversion = switch @chord
+      when i   then 0
+      when iv  then 2
+      when iv7 then 2
+      when v   then 2
+      when v7   then 2
+      when V   then 2
+    for pitch in @chord.inversion(inversion)
       notes.push(
-        new Note(pitch + OCTAVE)
+        new Note(pitch % 12 + OCTAVE)
           .setDuration(1 / 6))
 
-    for pitch in @chord
+    for pitch in @chord.inversion(inversion)
       notes.push(
-        new Note(pitch + OCTAVE)
+        new Note(pitch % 12 + OCTAVE)
           .setDuration(1 / 6)
           .setSubdivision(2 / 3))
     return notes
@@ -54,11 +62,11 @@ class BluesComposer extends Composer
   generateBass: ->
     notes = []
     notes.push(
-      new Note(@chord[0] - 2 * OCTAVE)
+      new Note(@chord.root - 2 * OCTAVE)
         .setAttack(0.8)
         .setDuration(1 / 2))
     notes.push(
-      new Note(@chord[0] - 2 * OCTAVE)
+      new Note(@chord.root - 2 * OCTAVE)
         .setAttack(0.6)
         .setSubdivision(SWING)
         .setDuration(1 / 3))
