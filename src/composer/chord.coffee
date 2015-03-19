@@ -34,6 +34,4 @@ class Chord
   toString: ->
     return "<Chord: #{@pitches}>"
 
-window.Chord = Chord
-console.log "CHORDS"
 module.exports = Chord
