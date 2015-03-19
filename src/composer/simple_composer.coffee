@@ -3,7 +3,7 @@ DrumComposer = require './drum_composer.coffee'
 Mixer = require '../mixer.coffee'
 Note = require '../note.coffee'
 Random = require "../random.coffee"
-Scale = require "./scales.coffee"
+Scale = require "./scale.coffee"
 
 # Creates simple music
 class SimpleComposer extends Composer
