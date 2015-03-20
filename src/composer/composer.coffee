@@ -18,6 +18,7 @@ class Composer
       'tempo': @generateTempo()
       'high': @generateHigh()
       'lead': @generateLead()
+      'guitar': @generateGuitar()
       'bass': @generateBass()
       'drums': @generateDrums()
     }
@@ -35,6 +36,9 @@ class Composer
   generateLead: ->
     return []
   
+  generateGuitar: ->
+    return []
+
   generateBass: ->
     return []
 

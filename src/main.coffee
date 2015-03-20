@@ -8,6 +8,7 @@ SawtoothSynth = require "./instruments/sawtooth_synth.coffee"
 SimpleComposer = require "./composer/simple_composer.coffee"
 SimpleReverb = require "./effects/simple_reverb.coffee"
 SineSynth = require "./instruments/sine_synth.coffee"
+StrumComposer = require "./composer/strum_composer.coffee"
 SquareSynth = require "./instruments/square_synth.coffee"
 TriangleSynth = require "./instruments/triangle_synth.coffee"
 Visualizer = require "./visualizer.coffee"
@@ -26,7 +27,6 @@ window.onload = ->
     reverb.output.connect(Mixer.output)
 
     instruments.high.output.connect(reverb.input)
-    instruments.lead.output.connect(Mixer.output)
     instruments.lead.output.connect(reverb.input)
     instruments.bass.output.connect(reverb.input)
     instruments.drums.output.connect(reverb.input)

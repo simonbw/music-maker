@@ -15,7 +15,7 @@ class Guitar extends BufferInstrument
   @getN: (f) ->
     return 2 * Mixer.context.sampleRate / f
 
-  writeToBuffer: (note, buffer) ->
+  writeToBuffer: (note, beat, buffer) ->
     N = Math.round(Guitar.getN(note.frequency))
 
     bends = []
