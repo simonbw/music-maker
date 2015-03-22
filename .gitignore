@@ -1,6 +1,6 @@
 # Ignore bundler config.
 /node_modules
-/bin
+/bin/music_maker.js
 
 # Ignore all OS crap
 *.DS_Store

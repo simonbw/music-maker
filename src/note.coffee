@@ -9,6 +9,7 @@ class Note
     @subdivision = 0
     @frequency = Note.getFrequency(@pitch)
     @pitchBends = []
+    @modifiers = {}
 
   setPitch: (value) ->
     @pitch = value
@@ -54,5 +55,15 @@ class Note
       length: end - start
     }
     return this
+
+  addModifier: (modifier, value = true) ->
+    @modifiers[modifier] = value
+    return this
+
+  hasModifier: (modifier) ->
+    return modifier of @modifiers
+
+  getModifier: (modifier) ->
+    return @modifiers[modifier]
 
 module.exports = Note
