@@ -1,10 +1,22 @@
 Mixer = require "./mixer.coffee"
 
 files = [
+  "speakers/speaker_1.wav"
+  "speakers/speaker_2.wav"
   "speakers/mod_us_1.wav"
   "speakers/mod_us_2.wav"
   "speakers/mod_us_3.wav"
   "speakers/mod_us_4.wav"
+  "speakers/mod_uk_1.wav"
+  "speakers/mod_uk_2.wav"
+  "speakers/vin_us_1.wav"
+  "speakers/vin_us_2.wav"
+  "speakers/vin_uk_1.wav"
+  "speakers/vin_uk_2.wav"
+  "speakers/80s_uk_1.wav"
+  "speakers/80s_uk_2.wav"
+  "speakers/80s_us_1.wav"
+  "speakers/80s_us_2.wav"
 ]
 
 buffers = {}

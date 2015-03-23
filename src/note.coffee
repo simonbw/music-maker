@@ -9,6 +9,7 @@ class Note
     @subdivision = 0
     @frequency = Note.getFrequency(@pitch)
     @pitchBends = []
+    @modifiers = {}
 
   setPitch: (value) ->
     @pitch = value
@@ -38,10 +39,10 @@ class Note
   
   # Add a pitch bend
   # 
-  # @param start [number] time to start at
-  # @param end [number]   time to end at
-  # @param from [number]  semitones to bend from
-  # @param to [number]    semitones to bend to
+  # @param start [number] time to start at (fraction of note length)
+  # @param end [number]   time to end at (fraction of note length)
+  # @param from [number]  semitones different to bend from
+  # @param to [number]    semitones different to bend to
   addPitchBend: (start, end, from, to) ->
     # TODO: Guarantee no bad timing
     @pitchBends.push {
@@ -51,7 +52,18 @@ class Note
       fromFrequency: Note.getFrequency(@pitch + from)
       to: to
       toFrequency: Note.getFrequency(@pitch + to)
+      length: end - start
     }
     return this
+
+  addModifier: (modifier, value = true) ->
+    @modifiers[modifier] = value
+    return this
+
+  hasModifier: (modifier) ->
+    return modifier of @modifiers
+
+  getModifier: (modifier) ->
+    return @modifiers[modifier]
 
 module.exports = Note
