@@ -3,7 +3,7 @@ BufferInstrument = require "./buffer_instrument.coffee"
 
 class Guitar extends BufferInstrument
 
-  writeToBuffer: (note, buffer) ->
+  writeToBuffer: (note, beat, buffer) ->
     # fill buffer
     N = Math.floor(2 * Mixer.context.sampleRate / note.frequency)
 

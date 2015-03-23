@@ -12,6 +12,7 @@ class BluesSoloComposer
     @lastPitchIndex = Random.int(@scale.length)
     @up = Random.bit() # whether we're heading up or down
     @lastDuration = 0
+    @resting = false
 
   getBeat: () ->
     notes = []
@@ -63,17 +64,26 @@ class BluesSoloComposer
         durationChances[0][1] *= 20
         durationChances[0][1] += 20
 
+      if @composer.phrase == 2
+        durationChances[0][1] *= 1.0 + 0.13 * @composer.bar
       # Make sure we can't play notes that will go outside the beat
       for i in [0...durationChances.length]
         durationChances[i][1] *= (durationChances[i][0] <= remainingSubdivisions)
 
       @lastDuration = duration = Random.weightedChoose(durationChances)
 
-      restChance = 0.01 * duration
-      if currentSubdivision == 1
+      restChance = 0.01 * Math.pow(duration, 1.3)
+      if @resting
+        restChance += 0.5 # controls average length of rest
+
+      if currentSubdivision == 0
         restChance += 0.1
 
-      if not Random.bit(restChance)
+      if @composer.phrase == 2
+        restChance *= 0.6 - 0.08 * @composer.bar
+
+      @resting = Random.bit(restChance)
+      if not @resting
         attack = 0.4
         if consonant
           attack += 0.1
@@ -99,7 +109,7 @@ class BluesSoloComposer
             note.addPitchBend(0, 0.15 + Math.random() * 0.4, sign * 2, 0)
           else
             amount = Random.sign() * 2
-            peakTime = 1 / duration 
+            peakTime = 1 / duration
             note.addPitchBend(0, peakTime, amount, 0)
             note.addPitchBend(peakTime, peakTime * 2, 0, amount)
         notes.push(note)
