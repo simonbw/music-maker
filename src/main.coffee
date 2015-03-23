@@ -1,5 +1,6 @@
 Conductor = require "./conductor.coffee"
 Drumset = require "./instruments/drumset.coffee"
+Guitar = require "./instruments/guitar.coffee"
 Mixer = require "./mixer.coffee"
 SawtoothSynth = require "./instruments/sawtooth_synth.coffee"
 SineSynth = require "./instruments/sine_synth.coffee"

@@ -33,7 +33,7 @@ class BluesComposer extends Composer
     @soloComposer = new BluesSoloComposer(this)
 
   generateTempo: ->
-    return 100
+    return 80
 
   generateHigh: ->
     notes = []
